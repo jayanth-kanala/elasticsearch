@@ -1,6 +1,7 @@
 <?php
 global $js_path,$css_path;
-$js_path = base_url("assets/js")."/";
+$js_path 	= base_url("assets/js")."/";
+$css_path 	= base_url("assets/css")."/";
 ?>
 <?php $this->load->view("header"); ?>
 <body>

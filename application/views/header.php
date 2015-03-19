@@ -11,10 +11,11 @@
 
 	<!-- Bootstrap core CSS -->
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<?php global $css_path; ?>
+	<link rel="stylesheet" href="<?php echo $css_path; ?>bootstrap.min.css">
 
 	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="<?php echo $css_path; ?>bootstrap-theme.min.css">
 
 	<style>
 		body {
