@@ -129,6 +129,108 @@ class Users extends CI_Controller {
 		return $this->db->insert_id();
 	}
 
+	public function get_profile($json=TRUE)
+	{
+		$mt_rand = mt_rand(0, 1);
+		$profile = array(
+		                 'email_id' 	=> $this->email_id,
+		                 'first_name'   => $this->faker->firstName,
+		                 'middle_name'  => "",
+		                 'last_name'    => $this->faker->lastName,
+		                 'salutation'   => $this->faker->title,
+		                 'birthday' 	=> $this->faker->dateTimeThisCentury->format('Y-m-d'),
+		                 'gender' 		=> $mt_rand ? "M" : "F",
+		                 'picture' 		=> $this->faker->imageURL(),
+		                 'relationship' => mt_rand(0, 3),
+		                 'headline' 	=> $this->faker->realText(150),
+		                 'about_me' 	=> $this->faker->realText(150),
+		                 'score' 		=> (5 % mt_rand(5, 10)) ? 5 * mt_rand(1, 26) : 10 * mt_rand(1, 13),
+		                 );
+
+		return ($json) ? json_encode($profile) : $profile;
+	}
+
+	public function get_address($json=TRUE)
+	{
+		$address =array();
+		$mt_rand = mt_rand(1, 3);
+		for ($i=0; $i < $mt_rand; $i++) {
+			$address[$i] = array(
+			                     'address' 		=> $this->faker->streetAddress,
+			                     'city' 		=> $this->faker->city,
+			                     'state' 		=> $this->faker->state,
+			                     'country' 		=> $this->faker->country,
+			                     'pincode' 		=> $this->faker->postcode,
+			                     'type'	=> mt_rand(1, 2),
+			                     'current'		=> mt_rand(0, 1),
+			                     );
+		}
+
+		return ($json) ? json_encode($address) : $address;
+	}
+
+	public function get_contact($json=TRUE)
+	{
+		$contact =array();
+		$mt_rand = mt_rand(1, 4);
+
+		for ($i=0; $i < $mt_rand; $i++) {
+			$contact[$i] = array(
+			                     'number'	=> $this->faker->phoneNumber,
+			                     'type'		=> $mt_rand,
+			                     );
+		}
+		return ($json) ? json_encode($contact) : $contact;
+	}
+
+	public function get_education($json=TRUE)
+	{
+		$education =array();
+		$mt_rand = mt_rand(0, 1);
+		$e_rand = mt_rand(1, 4);
+		$end_date = $this->faker->dateTimeThisCentury->format('Y');
+
+		for ($i=0; $i < $e_rand; $i++) {
+			$education[$i] = array(
+			                       'name' 			=> $this->faker->state."-".$this->in_name[array_rand($this->in_name)],
+			                       'type' 			=> $e_rand,
+			                       'course'			=> $this->course[array_rand($this->course)],
+			                       'degree'			=> $this->degree[array_rand($this->degree)],
+			                       'current'		=> $mt_rand,
+			                       'start_date'		=> $end_date - mt_rand(3, 4),
+			                       'end_date'		=> $end_date,
+			                       );
+		}
+
+		return ($json) ? json_encode($education) : $education;
+	}
+
+	public function get_work($json=TRUE)
+	{
+		$work = array();
+		$mt_rand 	= mt_rand(0, 1);
+		$w_rand 	= mt_rand(1, 4);
+		$end_year 	= $this->faker->dateTimeThisCentury->format('Y');
+		$end_month 	= $this->faker->dateTimeThisCentury->format('m');
+
+		for ($i=0; $i <$w_rand ; $i++) {
+			$work[$i] = array(
+			                  'organization'=> $this->faker->company,
+			                  'position'  	=> $this->faker->catchPhrase,
+			                  'function'  	=> $this->faker->bs,
+			                  'location'	=> $this->faker->city,
+			                  'start_month'	=> $end_month - $mt_rand,
+			                  'end_month'	=> $end_month,
+			                  'start_year'	=> $end_year- mt_rand(1,20),
+			                  'end_year'	=> $end_year,
+			                  'current'		=> $mt_rand,
+			                  );
+		}
+
+		return ($json) ? json_encode($work) : $work;
+	}
+
+
 	private function _truncate_db()
 	{
 		$this->db->truncate($this->table_users);
