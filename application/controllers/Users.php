@@ -30,8 +30,8 @@ class Users extends CI_Controller {
 	function init()
 	{
 		$config['hostname'] = "localhost";
-		$config['username'] = "coherendz";
-		$config['password'] = "coherendz";
+		$config['username'] = "root";
+		$config['password'] = "";
 		$config['database'] = "testdb";
 		$config['dbdriver'] = "mysqli";
 		$config['dbprefix'] = "";
